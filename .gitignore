@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+CREDENTIALS.md
+SERVER_DEPLOY.md
+*.log
+preview/dist/
+backend/uploads/

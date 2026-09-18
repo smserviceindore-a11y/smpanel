@@ -1,0 +1,283 @@
+{
+  "info": {
+    "name": "SM Global Solution Hub API",
+    "description": "Phase 1 MVP APIs — Base URL http://localhost:5001/api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5001/api" },
+    { "key": "token", "value": "" },
+    { "key": "projectId", "value": "" },
+    { "key": "projectSlug", "value": "sm-hr-pro" },
+    { "key": "requirementId", "value": "" },
+    { "key": "customizationId", "value": "" },
+    { "key": "categoryId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/health"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.success && res.data && res.data.token) {",
+                  "  pm.collectionVariables.set('token', res.data.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@smglobal.com\",\n  \"password\": \"SmGlobal@2026\"\n}"
+            },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/auth/me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public — Categories",
+      "item": [
+        {
+          "name": "List Categories",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/categories"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public — Projects",
+      "item": [
+        {
+          "name": "All Projects",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects?limit=50"
+          }
+        },
+        {
+          "name": "Featured Projects",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/featured"
+          }
+        },
+        {
+          "name": "Filter Company Projects",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects?ownerType=company"
+          }
+        },
+        {
+          "name": "Filter Developer Projects",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects?ownerType=developer"
+          }
+        },
+        {
+          "name": "Search Projects",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects?search=crm"
+          }
+        },
+        {
+          "name": "Project Detail by Slug",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.success && res.data && res.data._id) {",
+                  "  pm.collectionVariables.set('projectId', res.data._id);",
+                  "  pm.collectionVariables.set('projectSlug', res.data.slug);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/projects/{{projectSlug}}"
+          }
+        },
+        {
+          "name": "Increment View",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/projects/{{projectId}}/view"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public — Forms",
+      "item": [
+        {
+          "name": "Submit Requirement",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Client\",\n  \"company\": \"ABC Pvt Ltd\",\n  \"email\": \"client@test.com\",\n  \"mobile\": \"9876543210\",\n  \"industry\": \"Manufacturing\",\n  \"projectType\": \"ERP\",\n  \"modules\": [\"Inventory\", \"Production\"],\n  \"needsERP\": true,\n  \"budget\": \"200000\",\n  \"timeline\": \"2 months\"\n}"
+            },
+            "url": "{{baseUrl}}/requirements"
+          }
+        },
+        {
+          "name": "Submit Customization",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Custom User\",\n  \"email\": \"custom@test.com\",\n  \"mobile\": \"9876500000\",\n  \"projectId\": \"{{projectId}}\",\n  \"selectedModules\": [\"Payroll\", \"Attendance\"],\n  \"budget\": \"150000\",\n  \"timeline\": \"1 month\"\n}"
+            },
+            "url": "{{baseUrl}}/customization-requests"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin — Dashboard",
+      "item": [
+        {
+          "name": "Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/admin/dashboard"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin — Projects",
+      "item": [
+        {
+          "name": "List Admin Projects",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/admin/projects"
+          }
+        },
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Temp Test Project\",\n  \"shortDescription\": \"Temporary project for API test\",\n  \"description\": \"<h1>Temp</h1><p>Test project</p>\",\n  \"industry\": \"Test\",\n  \"projectType\": \"SaaS\",\n  \"technologies\": [\"React\"],\n  \"features\": [\"Dashboard\"],\n  \"status\": \"draft\",\n  \"ownerType\": \"company\",\n  \"customizable\": true\n}"
+            },
+            "url": "{{baseUrl}}/admin/projects"
+          }
+        },
+        {
+          "name": "Update Project Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"published\",\n  \"featured\": false\n}"
+            },
+            "url": "{{baseUrl}}/admin/projects/{{projectId}}/status"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin — Categories",
+      "item": [
+        {
+          "name": "List Admin Categories",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.success && res.data && res.data[0]) {",
+                  "  pm.collectionVariables.set('categoryId', res.data[0]._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/admin/categories"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin — Leads",
+      "item": [
+        {
+          "name": "List Requirements",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/admin/requirements"
+          }
+        },
+        {
+          "name": "List Customization Requests",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/admin/customization-requests"
+          }
+        }
+      ]
+    }
+  ]
+}

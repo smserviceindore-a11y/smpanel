@@ -1,0 +1,321 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #0b1f1f;
+  --color-brand: #0f3d3e;
+  --color-brand-deep: #0a2a2b;
+  --color-accent: #14b8a6;
+  --color-accent-soft: #5eead4;
+  --color-sand: #f4f7f6;
+  --color-mist: #e7eeec;
+  --color-muted: #5b6e6d;
+  --color-card: #ffffff;
+  --color-line: #d5e0dd;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(20, 184, 166, 0.12), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 90% 0%, rgba(15, 61, 62, 0.08), transparent 45%),
+    var(--color-sand);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* High-contrast buttons — explicit colors so links never inherit dark text */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-lg {
+  padding: 0.85rem 1.35rem;
+  font-size: 0.9rem;
+}
+
+.btn-md {
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: #042f2e !important;
+  box-shadow: 0 8px 24px rgba(20, 184, 166, 0.28);
+}
+
+.btn-accent:hover {
+  background: #2dd4bf;
+  color: #042f2e !important;
+}
+
+.btn-brand {
+  background: var(--color-brand);
+  color: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(15, 61, 62, 0.22);
+}
+
+.btn-brand:hover {
+  background: var(--color-brand-deep);
+  color: #ffffff !important;
+}
+
+.btn-light {
+  background: #ffffff;
+  color: var(--color-brand) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.btn-light:hover {
+  background: #f0fdfa;
+  color: var(--color-brand) !important;
+}
+
+.btn-ghost-light {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(8px);
+}
+
+.btn-ghost-light:hover {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff !important;
+}
+
+.btn-outline {
+  background: #ffffff;
+  color: var(--color-brand) !important;
+  border: 1px solid var(--color-line);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-accent);
+  background: #f0fdfa;
+  color: var(--color-brand) !important;
+}
+
+.btn-danger {
+  background: #fff1f2;
+  color: #9f1239 !important;
+  border: 1px solid #fecdd3;
+}
+
+.btn-danger:hover {
+  background: #ffe4e6;
+  color: #9f1239 !important;
+}
+
+.prose-project h1 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1.25;
+  margin: 0 0 0.75rem;
+  color: var(--color-brand);
+}
+
+.prose-project h2 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin: 1.5rem 0 0.6rem;
+  color: var(--color-brand);
+}
+
+.prose-project p {
+  margin: 0 0 0.85rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.prose-project ul {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+  color: var(--color-muted);
+}
+
+.prose-project li {
+  margin-bottom: 0.35rem;
+  line-height: 1.55;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes draw-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-float {
+  animation: float-y 7s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-y 10s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 5s ease-in-out infinite;
+}
+
+.hero-gradient {
+  background: linear-gradient(125deg, #0a2a2b 0%, #0f3d3e 38%, #115e59 72%, #0f766e 100%);
+  background-size: 180% 180%;
+  animation: shimmer 14s ease infinite alternate;
+}
+
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.12s; }
+.stagger > *:nth-child(3) { animation-delay: 0.19s; }
+.stagger > *:nth-child(4) { animation-delay: 0.26s; }
+.stagger > *:nth-child(5) { animation-delay: 0.33s; }
+.stagger > *:nth-child(6) { animation-delay: 0.4s; }
+.stagger > *:nth-child(7) { animation-delay: 0.47s; }
+.stagger > *:nth-child(8) { animation-delay: 0.54s; }
+
+.reveal-line {
+  transform-origin: left;
+  animation: draw-line 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+
+/* Dashboard shell */
+.dash-shell {
+  background:
+    radial-gradient(ellipse 70% 45% at 100% 0%, rgba(20, 184, 166, 0.1), transparent 55%),
+    radial-gradient(ellipse 50% 35% at 0% 100%, rgba(15, 61, 62, 0.06), transparent 50%),
+    var(--color-sand);
+}
+
+.dash-content {
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.kenburns {
+  animation: kenburns 22s ease-out forwards;
+  transform-origin: center center;
+}
+
+.kenburns-slow {
+  animation: kenburns 28s ease-out forwards;
+  transform-origin: 60% 40%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-float,
+  .animate-float-slow,
+  .animate-pulse-soft,
+  .hero-gradient,
+  .reveal-line,
+  .kenburns,
+  .kenburns-slow {
+    animation: none;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
