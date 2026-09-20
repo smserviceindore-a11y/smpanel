@@ -151,11 +151,11 @@ export default function ProjectDetailPage() {
               <p className="mt-4 font-display text-2xl font-semibold text-accent-soft">{priceLabel}</p>
             ) : null}
 
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="project-hero-actions mt-6">
               {canBuy ? (
                 <button
                   type="button"
-                  className="btn btn-accent btn-lg"
+                  className="btn btn-accent btn-md"
                   disabled={buyMutation.isPending}
                   onClick={() => {
                     if (!user || user.role !== 'client') {
@@ -173,13 +173,34 @@ export default function ProjectDetailPage() {
                   href={project.demoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn btn-ghost-light btn-lg"
+                  className="btn btn-ghost-light btn-md"
                 >
                   Launch Live Demo
                 </a>
               ) : null}
+              {project.documentationUrl ? (
+                <a
+                  href={project.documentationUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  download
+                  className="btn btn-ghost-light btn-md"
+                >
+                  Download PDF
+                </a>
+              ) : null}
+              {project.githubUrl ? (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-ghost-light btn-md"
+                >
+                  View on GitHub
+                </a>
+              ) : null}
               {project.customizable !== false ? (
-                <Link to={`/customize/${project.slug}`} className="btn btn-ghost-light btn-lg">
+                <Link to={`/customize/${project.slug}`} className="btn btn-ghost-light btn-md">
                   Request customization
                 </Link>
               ) : null}
@@ -274,18 +295,18 @@ export default function ProjectDetailPage() {
           </section>
         </div>
 
-        <aside className="space-y-4">
-          <div className="rounded-2xl border border-line bg-card p-5">
+        <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+          <div className="rounded-2xl border border-line bg-card p-6 shadow-[0_12px_40px_rgba(15,61,62,0.06)]">
             <h3 className="font-display text-lg font-semibold text-brand">Need this for your business?</h3>
-            <p className="mt-2 text-sm text-muted">
+            <p className="mt-2 text-sm leading-relaxed text-muted">
               Buy the ready version now, or request customization for extra modules — we will send a
               separate bill for custom work.
             </p>
-            <div className="mt-4 flex flex-col gap-2">
+            <div className="mt-5 flex flex-col gap-3">
               {canBuy ? (
                 <button
                   type="button"
-                  className="btn btn-accent w-full"
+                  className="btn btn-brand btn-md w-full"
                   disabled={buyMutation.isPending}
                   onClick={() => {
                     if (!user || user.role !== 'client') {
@@ -295,11 +316,42 @@ export default function ProjectDetailPage() {
                     buyMutation.mutate();
                   }}
                 >
-                  Buy Now
+                  {buyMutation.isPending ? 'Starting…' : 'Buy Now'}
                 </button>
               ) : null}
+              {project.liveDemoAvailable && project.demoUrl ? (
+                <a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-outline btn-md w-full"
+                >
+                  Launch Live Demo
+                </a>
+              ) : null}
+              {project.documentationUrl ? (
+                <a
+                  href={project.documentationUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  download
+                  className="btn btn-soft btn-md w-full"
+                >
+                  Download PDF
+                </a>
+              ) : null}
+              {project.githubUrl ? (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-soft btn-md w-full"
+                >
+                  View on GitHub
+                </a>
+              ) : null}
               {project.customizable !== false ? (
-                <Link to={`/customize/${project.slug}`} className="btn btn-outline w-full text-center">
+                <Link to={`/customize/${project.slug}`} className="btn btn-soft btn-md w-full">
                   Request customization
                 </Link>
               ) : null}

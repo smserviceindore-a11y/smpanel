@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
-import { getCategories, getProjects } from '../services/api';
+import { getCategories, getProjects, getPublicDevelopers } from '../services/api';
 import { useDebounce } from '../hooks/useDebounce';
 import ProjectCard from '../components/projects/ProjectCard';
 import Pagination from '../components/ui/Pagination';
@@ -17,6 +17,7 @@ export default function ProjectsPage() {
   const category = searchParams.get('category') || '';
   const liveDemo = searchParams.get('liveDemo') || '';
   const sort = searchParams.get('sort') || 'featured';
+  const developerId = searchParams.get('developerId') || '';
 
   const filters = useMemo(
     () => ({
@@ -26,14 +27,21 @@ export default function ProjectsPage() {
       ...(ownerType ? { ownerType } : {}),
       ...(category ? { category } : {}),
       ...(liveDemo ? { liveDemo } : {}),
+      ...(developerId ? { developerId } : {}),
       ...(debouncedSearch ? { search: debouncedSearch } : {}),
     }),
-    [page, ownerType, category, liveDemo, sort, debouncedSearch]
+    [page, ownerType, category, liveDemo, sort, developerId, debouncedSearch]
   );
 
   const { data: catData } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => (await getCategories()).data,
+    staleTime: 5 * 60_000,
+  });
+
+  const { data: developersData } = useQuery({
+    queryKey: ['public-developers'],
+    queryFn: async () => (await getPublicDevelopers()).data,
     staleTime: 5 * 60_000,
   });
 
@@ -47,12 +55,19 @@ export default function ProjectsPage() {
   const projects = data?.data || [];
   const pagination = data?.pagination || { page: 1, totalPages: 1, total: 0 };
   const categories = catData?.data || [];
+  const developers = developersData?.data || [];
 
   const updateParam = (key, value) => {
     const next = new URLSearchParams(searchParams);
     if (!value) next.delete(key);
     else next.set(key, value);
     if (key !== 'page') next.delete('page');
+    if (key === 'developerId' && value) {
+      next.set('ownerType', 'developer');
+    }
+    if (key === 'ownerType' && value !== 'developer') {
+      next.delete('developerId');
+    }
     setSearchParams(next);
   };
 
@@ -65,7 +80,7 @@ export default function ProjectsPage() {
         </p>
       </div>
 
-      <div className="mb-6 grid gap-3 rounded-2xl border border-line bg-card p-4 md:grid-cols-2 lg:grid-cols-5">
+      <div className="mb-6 grid gap-3 rounded-2xl border border-line bg-card p-4 md:grid-cols-2 lg:grid-cols-3">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -81,6 +96,21 @@ export default function ProjectsPage() {
           <option value="">All owners</option>
           <option value="company">Company projects</option>
           <option value="developer">Developer projects</option>
+        </select>
+
+        <select
+          value={developerId}
+          onChange={(e) => updateParam('developerId', e.target.value)}
+          className="rounded-xl border border-line bg-sand px-3 py-2.5 text-sm"
+          disabled={ownerType === 'company'}
+        >
+          <option value="">All developers</option>
+          {developers.map((d) => (
+            <option key={d.id} value={d.id}>
+              {d.name}
+              {d.company ? ` · ${d.company}` : ''}
+            </option>
+          ))}
         </select>
 
         <select

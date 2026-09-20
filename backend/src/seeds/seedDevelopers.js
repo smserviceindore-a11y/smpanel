@@ -54,10 +54,12 @@ const developers = [
     role: 'developer',
     verificationStatus: 'verified',
     profile: {
-      bio: 'Lead full-stack developer — React, Node.js, MongoDB. Built SM Global Solution Hub end-to-end.',
-      skills: ['React', 'Node.js', 'Express', 'MongoDB', 'Vite'],
+      bio: 'Built SM Global Solution Hub marketplace and SMM Portal internship/training system (Admin, HR, Trainer, College, Intern).',
+      skills: ['React', 'Node.js', 'Express', 'MongoDB', 'MySQL', 'Prisma', 'Vite', 'Razorpay'],
       company: 'SM Global Tech Solutions',
-      experience: 'Full-stack',
+      experience: 'Full-stack / Lead',
+      avatar:
+        'https://res.cloudinary.com/luysen3q/image/upload/v1789876604/sm-global-hub/developers/sagar.jpg',
     },
   },
   {
@@ -68,10 +70,12 @@ const developers = [
     role: 'developer',
     verificationStatus: 'verified',
     profile: {
-      bio: 'Software developer contributing to marketplace projects and product builds.',
-      skills: ['JavaScript', 'Web Development'],
+      bio: 'Built Client Matrix (agency SaaS) and AB Public School Portal (institutional ERP) — multi-role dashboards, payments and operations.',
+      skills: ['React', 'Node.js', 'Express', 'MongoDB', 'JavaScript', 'Tailwind CSS', 'Razorpay'],
       company: 'SM Global Tech Solutions',
-      experience: 'Developer',
+      experience: 'Full-stack / Team Lead',
+      avatar:
+        'https://res.cloudinary.com/luysen3q/image/upload/v1789876606/sm-global-hub/developers/shubham.jpg',
     },
   },
   {
@@ -82,10 +86,12 @@ const developers = [
     role: 'developer',
     verificationStatus: 'verified',
     profile: {
-      bio: 'Frontend contributor — HTML / UI experiments for SM Global projects.',
-      skills: ['HTML', 'CSS', 'Frontend'],
+      bio: 'Built SM SERVICES — Flask invoice & billing automation with OCR, PDF invoices, and UPI QR.',
+      skills: ['Python', 'Flask', 'SQLite', 'OCR', 'Bootstrap', 'ReportLab'],
       company: 'SM Global Tech Solutions',
-      experience: 'Frontend',
+      experience: 'Full-stack (Python)',
+      avatar:
+        'https://res.cloudinary.com/luysen3q/image/upload/v1789876607/sm-global-hub/developers/ambikeshwar.jpg',
     },
   },
   {
@@ -100,6 +106,8 @@ const developers = [
       skills: ['HTML', 'CSS', 'React', 'UI'],
       company: 'SM Global Tech Solutions',
       experience: 'Frontend',
+      avatar:
+        'https://res.cloudinary.com/luysen3q/image/upload/v1789876610/sm-global-hub/developers/aadrika.jpg',
     },
   },
   {
@@ -110,10 +118,12 @@ const developers = [
     role: 'developer',
     verificationStatus: 'verified',
     profile: {
-      bio: 'Developer on the SM Global Solution Hub college team.',
-      skills: ['JavaScript', 'Web'],
+      bio: 'Built Yash Health Connect — multi-role hospital management SaaS with appointments, billing, care rooms and AI assistance.',
+      skills: ['React', 'Node.js', 'Express', 'MongoDB', 'Socket.io', 'Razorpay'],
       company: 'SM Global Tech Solutions',
-      experience: 'Developer',
+      experience: 'Full-stack (MERN)',
+      avatar:
+        'https://res.cloudinary.com/luysen3q/image/upload/v1789876608/sm-global-hub/developers/yash.jpg',
     },
   },
   {
@@ -124,10 +134,12 @@ const developers = [
     role: 'developer',
     verificationStatus: 'verified',
     profile: {
-      bio: 'Developer on the SM Global Solution Hub college team.',
-      skills: ['JavaScript', 'Web'],
+      bio: 'Built SmartJobs — Django career network with AI resume tools, employer billing, messaging and job CMS.',
+      skills: ['Python', 'Django', 'SQLite', 'Razorpay', 'Gemini AI', 'HTML/CSS'],
       company: 'SM Global Tech Solutions',
-      experience: 'Developer',
+      experience: 'Full-stack (Django)',
+      avatar:
+        'https://res.cloudinary.com/luysen3q/image/upload/v1789876609/sm-global-hub/developers/ayush.jpg',
     },
   },
 ];

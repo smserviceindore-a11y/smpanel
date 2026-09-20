@@ -41,6 +41,7 @@ app.use('/api/customization-requests', customizationRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/contact', require('./routes/contact.routes'));
 app.use('/api/chat', require('./routes/chat.routes'));
+app.get('/api/developers', require('./controllers/publicDeveloper.controller').listPublicDevelopers);
 app.get('/api/developers/:id', require('./controllers/publicDeveloper.controller').getPublicDeveloperProfile);
 app.use('/api/admin', adminRoutes);
 app.use('/api/super-admin', require('./routes/superAdmin.routes'));

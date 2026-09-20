@@ -103,6 +103,7 @@ export const getAbandonedQuotes = (params) =>
 export const remindAbandonedQuotes = (data) =>
   api.post('/super-admin/analytics/abandoned-quotes/remind', data);
 export const getPublicDeveloper = (id) => api.get(`/developers/${id}`);
+export const getPublicDevelopers = () => api.get('/developers');
 export const getCategories = () => api.get('/categories');
 export const submitRequirement = (data) => api.post('/requirements', data);
 export const submitCustomization = (data) => api.post('/customization-requests', data);

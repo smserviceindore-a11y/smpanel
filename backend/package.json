@@ -9,6 +9,7 @@
     "seed": "node src/seeds/index.js",
     "seed:money": "node -e \"require('dotenv').config(); const connectDB=require('./src/config/db'); const seed=require('./src/seeds/seedMoneyStory'); (async()=>{ await connectDB(); await seed(); process.exit(0); })().catch(e=>{ console.error(e); process.exit(1); })\"",
     "seed:codecanyon": "node src/seeds/seedCodecanyonProducts.js",
+    "seed:college-projects": "node src/seeds/seedCollegeTeamProjects.js",
     "seed:images": "node src/seeds/seedProjectImages.js",
     "test:api": "node src/tests/api.test.js",
     "test": "npm run test:api"

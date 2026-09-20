@@ -24,6 +24,11 @@ const projectSchema = new mongoose.Schema(
     videoUrl: String,
     videoThumbnail: String,
 
+    /** Optional public documentation PDF / docs link */
+    documentationUrl: { type: String, trim: true },
+    /** Optional public source / GitHub repository URL */
+    githubUrl: { type: String, trim: true },
+
     demoUrl: String,
     demoCredentials: {
       username: String,

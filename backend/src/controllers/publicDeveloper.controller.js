@@ -3,6 +3,42 @@ const Project = require('../models/Project');
 const { sendSuccess, sendError } = require('../utils/apiResponse');
 
 /**
+ * Public list of developers who have published projects (for marketplace filters).
+ */
+const listPublicDevelopers = async (req, res, next) => {
+  try {
+    const developerIds = await Project.distinct('developerId', {
+      ownerType: 'developer',
+      developerId: { $ne: null },
+      status: { $in: ['published', 'featured'] },
+    });
+
+    const developers = await User.find({
+      _id: { $in: developerIds },
+      role: 'developer',
+      status: 'active',
+    })
+      .select('name profile.company profile.avatar verificationStatus')
+      .sort({ name: 1 })
+      .lean();
+
+    sendSuccess(
+      res,
+      developers.map((d) => ({
+        id: d._id,
+        name: d.name,
+        company: d.profile?.company || '',
+        avatar: d.profile?.avatar || '',
+        verified: d.verificationStatus === 'verified',
+      })),
+      'Developers fetched'
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
  * Public developer storefront — profile + published projects.
  */
 const getPublicDeveloperProfile = async (req, res, next) => {
@@ -54,4 +90,4 @@ const getPublicDeveloperProfile = async (req, res, next) => {
   }
 };
 
-module.exports = { getPublicDeveloperProfile };
+module.exports = { listPublicDevelopers, getPublicDeveloperProfile };

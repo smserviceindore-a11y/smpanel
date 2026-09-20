@@ -26,6 +26,11 @@ const buildProjectQuery = (query) => {
   if (query.liveDemo === 'true') filter.liveDemoAvailable = true;
   if (query.ownerType) filter.ownerType = query.ownerType;
 
+  if (query.developerId && /^[0-9a-fA-F]{24}$/.test(query.developerId)) {
+    filter.developerId = query.developerId;
+    filter.ownerType = 'developer';
+  }
+
   if (query.featured === 'true') filter.featured = true;
 
   filter.status = { $in: ['published', 'featured'] };
@@ -75,6 +80,7 @@ const getProjects = async (req, res, next) => {
     const [projects, total] = await Promise.all([
       Project.find(filter)
         .populate('category', 'name slug')
+        .populate('developerId', 'name profile.company verificationStatus')
         .sort(sort)
         .skip(skip)
         .limit(limit)
